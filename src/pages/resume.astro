@@ -1,0 +1,230 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = 'Résumé';
+const pageDescription = 'Resume of David Belayev Gal, a computer science graduate and M.Sc. cybersecurity student with experience in RF systems, technical operations, team training, and LLM evaluation.';
+
+const experience = [
+  {
+    title: 'LLM Training Specialist',
+    org: 'Outlier.ai + DataAnnotation',
+    start: '2025-08',
+    end: '2026-08',
+    ongoing: false,
+    bullets: [
+      'Evaluated LLM performance according to strict, complex, and predefined assessment guidelines.',
+    ],
+  },
+  {
+    title: 'Radio Frequency Technician',
+    org: 'Israeli Navy',
+    start: '2023',
+    end: '2026',
+    ongoing: false,
+    bullets: [
+      'Provided on-site technical support during high-pressure, high-risk operations outside Israel’s borders.',
+      'Led the acquisition and deployment of a more error-resistant messaging system aboard Dabur- and Dvora-class vessels.',
+      'Trained teams of RF technicians and system operators using a self-developed mentorship plan.',
+    ],
+  },
+];
+
+const education = [
+  {
+    degree: 'Master of Cybersecurity',
+    school: 'Ben-Gurion University of the Negev',
+    dates: '2026 – 2029',
+    note: 'Currently pursuing',
+    field: 'Cybersecurity / Computer and Information Systems Security',
+  },
+  {
+    degree: 'Bachelor of Science in Computer Science',
+    school: 'Ben-Gurion University of the Negev',
+    dates: '2020 – 2023',
+    note: 'Completed',
+    field: 'Computer Science',
+  },
+];
+
+const skills = [
+  'Splunk',
+  'Sysinternals',
+  'Snort',
+  'AD',
+  'Linux',
+  'JS',
+  'Node',
+  'Python',
+  'Java',
+  'HTML',
+  'CSS',
+  'PowerShell',
+];
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={pageTitle} description={pageDescription} />
+    <style>
+      :root { }
+
+      main.resume {
+        width: 780px;
+        max-width: calc(100% - 2em);
+        margin: 0 auto;
+        padding: 4.25rem 2rem; /* increased breathing room */
+        font-size: 18px; /* slightly smaller base font */
+      }
+
+      /* Single-column layout: always stack main content and side content */
+      .resume-grid {
+        display: block;
+      }
+
+      .resume-grid > * { margin-bottom: 3.5rem; }
+
+      .intro {
+        margin-bottom: 3rem;
+      }
+
+      h1.resume-name {
+        margin: 0 0 0.75rem 0;
+        font-size: 1.5rem; /* smaller heading */
+        letter-spacing: -0.02em;
+      }
+
+      .title-sub {
+        margin: 0 0 1.25rem 0;
+        color: rgb(var(--gray));
+      }
+
+      .summary {
+        margin: 0 0 2rem 0;
+        line-height: 2.1; /* more airy reading */
+        color: rgb(var(--text));
+      }
+
+      .section {
+        margin-bottom: 3rem;
+      }
+
+      .section h2 {
+        margin: 0 0 0.75rem 0;
+        font-size: 1.0rem; /* slightly smaller */
+        border-bottom: 1px solid rgba(var(--gray), 0.08);
+        padding-bottom: 0.65rem;
+        color: rgb(var(--black));
+      }
+
+      .experience-item + .experience-item { margin-top: 2.25rem; }
+
+      .job-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 1.5rem;
+        align-items: baseline;
+      }
+
+      .job-head h3 { margin: 0; font-size: 0.98rem; }
+
+      .job-meta { color: rgb(var(--gray)); font-size: 0.9rem; }
+
+      .bullets { margin: 0.8rem 0 0 0; padding-left: 1.35rem; }
+
+      .side {
+        background: transparent;
+        margin-top: 1rem;
+      }
+
+      .contact, .skills { background: var(--surface-bg); padding: 1.5rem; border-radius: 12px; }
+
+      .contact a { color: var(--accent); text-decoration: none; }
+
+      .skills-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0.8rem 1.5rem; }
+
+      .print-row { display:flex; justify-content:flex-end; margin-bottom: 1.5rem; }
+
+      .print-btn {
+        background: transparent; border: 1px solid rgba(var(--gray),0.12); padding: 0.5rem 0.8rem; border-radius:8px; cursor: pointer; color: rgb(var(--text));
+      }
+
+      @media print {
+        header, footer, .print-row { display: none !important; }
+        main.resume { padding: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main class="resume" role="main">
+      <div class="resume-grid">
+        <section class="main-col">
+          <header class="intro">
+            <h1 class="resume-name">David Belayev Gal</h1>
+            <p class="title-sub">Computer Science Graduate turning to Cybersecurity</p>
+            <p class="summary">Computer Science graduate and M.Sc. Cybersecurity student with practical experience spanning cybersecurity training, radio-frequency systems, technical operations, and LLM evaluation. Experienced in providing technical support during high-pressure operations, improving operational systems and making systems better.</p>
+          </header>
+
+          <section class="section" aria-labelledby="experience-heading">
+            <h2 id="experience-heading">Experience</h2>
+            <div>
+              {experience.map((job) => (
+                <article class="experience-item" key={job.title}>
+                  <div class="job-head">
+                    <h3>{job.title}</h3>
+                    <div class="job-meta">
+                      <span>{job.org}</span>
+                      <span aria-hidden="true"> — </span>
+                      <time datetime={job.start + (job.end ? '' : '')}>{job.start}{job.end ? ` – ${job.end}` : ''}</time>
+                    </div>
+                  </div>
+                  <ul class="bullets">
+                    {job.bullets.map(b => <li>{b}</li>)}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="section" aria-labelledby="education-heading">
+            <h2 id="education-heading">Education</h2>
+            <div>
+              {education.map((e) => (
+                <article key={e.degree} style="margin-bottom:1rem;">
+                  <div class="job-head">
+                    <h3>{e.degree}</h3>
+                    <div class="job-meta"><time>{e.dates}</time></div>
+                  </div>
+                  <div class="job-meta">{e.school} · {e.field} {e.note ? `· ${e.note}` : ''}</div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </section>
+
+        <aside class="side" aria-labelledby="contact-heading">
+          <div class="contact" id="contact">
+            <h2 id="contact-heading">Contact</h2>
+            <address>
+              <div>Israel</div>
+              <div><a href="mailto:davidbelayev@gmail.com">davidbelayev@gmail.com</a></div>
+              <div><a href="https://www.linkedin.com/in/david-belayev-gal" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+            </address>
+          </div>
+
+          <div style="height:1rem;"></div>
+
+          <div class="skills">
+            <h2 id="skills-heading">Core skills</h2>
+            <ul class="skills-list" aria-labelledby="skills-heading">
+              {skills.map(s => <li>{s}</li>)}
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

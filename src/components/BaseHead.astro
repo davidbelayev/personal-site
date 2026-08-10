@@ -21,8 +21,10 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" href="/favicon.ico" />
+<!-- Prefer SVG favicon; add version query to bust caches. Remove legacy .ico fallback to avoid old default icon. -->
+<!-- Favicon (SVG) — bump version to force browser refresh when changed -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+<link rel="shortcut icon" href="/favicon.svg?v=3" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
 	rel="alternate"

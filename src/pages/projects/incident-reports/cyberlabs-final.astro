@@ -1,0 +1,39 @@
+---
+import BaseHead from '../../../components/BaseHead.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+
+const pageTitle = 'Ransomware Attack';
+const pdfPath = '/assets/pdfs/cyberlabs-final.pdf';
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={pageTitle} description={pageTitle} />
+    <style>
+      main.report { max-width: 980px; margin: 0 auto; padding: 2rem 1rem; }
+      .viewer { width: 100%; height: calc(100vh - 240px); border: 1px solid rgba(var(--gray),8%); border-radius:8px; }
+      .actions { margin: 0.75rem 0; display:flex; gap:0.5rem; align-items:center; }
+      .btn { background: transparent; border: 1px solid rgba(var(--gray),0.12); padding:0.5rem 0.75rem; border-radius:8px; text-decoration:none; color:inherit; }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main class="report" role="main">
+      <header>
+        <h1>{pageTitle}</h1>
+      </header>
+
+      <div class="actions">
+        <a class="btn" href="/projects">← Back to Projects</a>
+        <a class="btn" href={pdfPath} target="_blank" rel="noopener">Open PDF in new tab</a>
+        <a class="btn" href={pdfPath} download>Download PDF</a>
+      </div>
+
+      <div>
+        <iframe class="viewer" src={pdfPath}></iframe>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
