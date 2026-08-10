@@ -12,10 +12,27 @@ const pdfPath = '/assets/pdfs/cyberlabs-final.pdf';
     <BaseHead title={pageTitle} description={pageTitle} />
     <style>
       main.report { max-width: 980px; margin: 0 auto; padding: var(--page-padding-vertical) var(--page-padding-horizontal); }
-      .viewer-wrap { width: 100%; max-width: 100%; overflow: auto; }
-      .viewer { width: 100%; max-width: 100%; display: block; height: calc(100vh - 240px); border: 1px solid rgba(var(--gray),8%); border-radius:8px; min-width: 0; }
-      .actions { margin: 0.75rem 0; display:flex; gap:0.5rem; align-items:center; }
-      .btn { background: transparent; border: 1px solid rgba(var(--gray),0.12); padding:0.5rem 0.75rem; border-radius:8px; text-decoration:none; color:inherit; }
+      .viewer-wrap { width: 100%; max-width: 100%; overflow: auto; -webkit-overflow-scrolling: touch; }
+      .viewer { width: 100%; max-width: 100vw; display: block; height: calc(100vh - 240px); border: none; border-radius:8px; min-width: 0; }
+        /* Hide embedded viewer on narrow portrait devices (mobile phones) */
+          @media (orientation: portrait) and (max-width: 900px) {
+            .viewer-wrap { display: none; }
+          }
+      @media (max-width: 720px) {
+          .viewer { height: 60vh; }
+        }
+        @media (max-width: 900px) {
+          .viewer { height: 60vh; }
+      }
+      .actions { margin: 0.75rem 0; display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
+      .btn { background: transparent; border: 1px solid rgba(var(--gray),0.12); padding:0.4rem 0.6rem; border-radius:8px; text-decoration:none; color:inherit; font-size:0.9rem; line-height:1; flex:0 1 auto; min-width:0; }
+      @media (max-width: 900px) {
+        .btn { font-size:0.85rem; }
+      }
+      @media (max-width: 480px) {
+        .actions { gap:0.4rem; }
+        .btn { flex:1 1 100%; text-align:center; padding:0.5rem; }
+      }
       /* Prevent the report page from producing a horizontal page scroll when the PDF is wide */
       html, body { overflow-x: hidden; }
     </style>
@@ -34,7 +51,9 @@ const pdfPath = '/assets/pdfs/cyberlabs-final.pdf';
       </div>
 
       <div class="viewer-wrap">
-        <iframe class="viewer" src={pdfPath + '#zoom=page-width'}></iframe>
+        <object class="viewer" data={pdfPath} type="application/pdf" aria-label="PDF viewer">
+          <p>Your browser doesn't support embedded PDFs. <a href={pdfPath} target="_blank" rel="noopener">Open in a new tab</a> or <a href={pdfPath} download>download</a> the file.</p>
+        </object>
       </div>
     </main>
     <Footer />

@@ -28,9 +28,10 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 		<BaseHead title={metaTitle} description={description} />
 		<style>
 			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+				width: 100%;
+				max-width: 980px;
+				box-sizing: border-box;
+				margin: 0 auto;
 				padding: var(--page-padding-vertical) var(--page-padding-horizontal);
 			}
 
@@ -55,8 +56,8 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 				box-shadow: var(--box-shadow);
 			}
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
+				width: 100%;
+				max-width: 980px;
 				margin: auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
@@ -107,7 +108,7 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 				border: 1px solid rgba(var(--gray), 0.08);
 				background: var(--surface-bg);
 				color: rgb(var(--text));
-				padding: 12px;
+				padding: 0 12px 12px 12px;
 				border-radius: 8px;
 				max-height: 320px;
 				overflow: auto;
@@ -120,13 +121,13 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 			/* Keep the copy button visible at the top when scrolling */
 			.prompt-box { position: relative; }
 			.copy-row {
-				position: sticky;
-				top: 0;
-				display: flex;
-				justify-content: flex-end;
-				padding-bottom: 8px;
-				background: var(--surface-bg);
-				z-index: 2;
+						position: sticky;
+						top: 0;
+						display: flex;
+						justify-content: flex-end;
+						padding: 8px 0; /* add top and bottom spacing so button isn't smothered */
+						background: var(--surface-bg);
+						z-index: 2;
 			}
 
 			/* Ensure prompt box stays LTR even when inside an RTL .prose container */
@@ -137,33 +138,52 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 			}
 			.prompt-box .prompt-content {
 				margin: 0;
+				padding-top: 12px;
 				white-space: pre-wrap;
 				color: inherit;
 			}
-			.copy-prompt-button {
-				background: var(--accent);
-				color: white;
-				border: none;
-				padding: 6px 10px;
-				border-radius: 6px;
-				cursor: pointer;
+					.copy-prompt-button {
+						background: transparent; /* no background so icon feels light */
+						color: rgb(var(--text));
+						border: none;
+						padding: 6px;
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
+						gap: 6px;
+						border-radius: 6px;
+						cursor: pointer;
+						min-width: 50px;
+						height: 50px;
+					}
+
+					.copy-prompt-button svg {
+						width: 34px; /* twice the previous visible size */
+						height: 34px;
+					}
+
+					@media (prefers-color-scheme: dark) {
+						.copy-prompt-button {
+							color: white; /* invert: light icon on dark backgrounds */
+						}
+					}
 			}
 		</style>
 		<script>
-			// Copy button handler for prompt box
-			document.addEventListener('click', (e) => {
-				const el = e.target;
-				if (el && el.classList && el.classList.contains('copy-prompt-button')) {
-					const targetId = el.getAttribute('data-target') || 'post-prompt';
-					const contentEl = document.getElementById(targetId);
-					if (!contentEl) return;
-					navigator.clipboard.writeText(contentEl.innerText).then(() => {
-						const prev = el.textContent;
-						el.textContent = 'הועתק';
-						setTimeout(() => { el.textContent = prev; }, 2000);
-					}).catch(() => { /* ignore */ });
-				}
-			});
+					// Copy button handler for prompt box
+					document.addEventListener('click', (e) => {
+						const el = e.target.closest && e.target.closest('.copy-prompt-button') || e.target;
+						if (el && el.classList && el.classList.contains('copy-prompt-button')) {
+							const targetId = el.getAttribute('data-target') || 'post-prompt';
+							const contentEl = document.getElementById(targetId);
+							if (!contentEl) return;
+							navigator.clipboard.writeText(contentEl.innerText).then(() => {
+								const prevHtml = el.innerHTML;
+								el.textContent = 'הועתק';
+								setTimeout(() => { el.innerHTML = prevHtml; }, 2000);
+							}).catch(() => { /* ignore */ });
+						}
+						});
 		</script>
 	</head>
 
@@ -197,9 +217,32 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 
 					{title && title.includes('Security+') && securityPrompt ? (
 						<div class="prompt-box" dir="ltr" aria-label="Security+ prompt">
-							<div class="copy-row">
-								<button class="copy-prompt-button" data-target="post-prompt">העתק</button>
-							</div>
+									<div class="copy-row">
+										<button class="copy-prompt-button" data-target="post-prompt" aria-label="Copy">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 32 32"
+												width="32"
+												height="32"
+												fill="none"
+												aria-hidden="true"
+											>
+												<g
+													stroke="currentColor"
+													stroke-width="2.15"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<path d="M 9.4 6.8 C 9.7 5.8, 10.6 5.5, 11.8 5.7 L 22.6 6.2 C 24.1 6.3, 24.6 7.2, 24.4 8.5 L 23.8 23.9 C 23.7 25.4, 22.8 26.2, 21.5 26.0 L 10.7 25.4 C 9.3 25.3, 8.6 24.2, 8.8 22.9 Z" />
+													<path d="M12.3 11.2 L19.8 11.5" />
+													<path d="M12.0 15.1 L20.9 14.8" />
+													<path d="M12.5 19.0 L17.8 19.3" />
+													<path d="M 24.7 11.0 L 28.0 10.7 L 27.7 14.2" />
+													<path d="M 27.8 10.8 L 24.6 14.1" />
+												</g>
+											</svg>
+										</button>
+									</div>
 							<pre id="post-prompt" class="prompt-content" dir="ltr">{securityPrompt}</pre>
 						</div>
 					) : null}

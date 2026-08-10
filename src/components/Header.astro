@@ -247,11 +247,16 @@ const ICON_SIZE = 24;
 	</script>
 </header>
 <style>
+
+	/* Make header sticky and sit above content */
 	header {
 		margin: 0;
 		padding: 0 1em;
 		background: var(--header-bg, white);
 		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+		position: sticky;
+		top: 0;
+		z-index: 1100;
 	}
 	h2 {
 		margin: 0;
@@ -272,7 +277,8 @@ const ICON_SIZE = 24;
 	.internal-links { display:flex; gap:0.5rem; margin-left:0.5rem; }
 	.nav-right { display:flex; align-items:center; gap:0.5rem; }
 	nav a {
-		padding: 1em 0.5em;
+		/* further reduce vertical padding (additional 25%) to shrink header height */
+		padding: 0.5em 0.5em;
 		color: var(--black);
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
@@ -295,7 +301,8 @@ const ICON_SIZE = 24;
 	.theme-toggle {
 		background: transparent;
 		border: none;
-		padding: 0.5em;
+		/* further reduce padding for a slimmer header */
+		padding: 0.25em;
 		margin-left: 0.5em;
 		cursor: pointer;
 		color: rgb(var(--gray-dark));
@@ -314,7 +321,7 @@ const ICON_SIZE = 24;
 	html.dark .icon-sun { display: none; }
 	html.dark .icon-moon { display: inline-block; }
 
-	/* Logo sizing */
+	/* Logo sizing: restored to original size so SVG remains unaffected */
 	.site-logo { width: 40px; height: 40px; display: block; }
 	@media (max-width: 720px) {
 		.site-logo { width: 32px; height: 32px; }
