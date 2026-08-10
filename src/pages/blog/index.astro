@@ -98,7 +98,22 @@ const posts = (await getCollection('blog')).sort(
 									{post.data.heroImage && (
 										<Image width={720} height={360} src={post.data.heroImage} alt="" />
 									)}
-									<h4 class="title">{post.data.title}</h4>
+									{
+										post.data.title && post.data.title.includes('Security+') ? (
+											(() => {
+												const parts = post.data.title.split('Security+');
+												return (
+													<h4 class="title" dir={post.data.lang === 'he' ? 'rtl' : 'ltr'}>
+														{parts[0]}
+														<span dir="ltr">Security+</span>
+														{parts.slice(1).join('Security+')}
+													</h4>
+												);
+											})()
+										) : (
+											<h4 class="title" dir={post.data.lang === 'he' ? 'rtl' : 'ltr'}>{post.data.title}</h4>
+										)
+									}
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
 									</p>

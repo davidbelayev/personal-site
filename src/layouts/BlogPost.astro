@@ -91,8 +91,9 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 
 			/* Prompt box styles (fixed-size, scrollable) */
 			.prompt-box {
-				border: 1px solid rgba(var(--gray-light), 0.8);
-				background: #fff;
+				border: 1px solid rgba(var(--gray), 0.08);
+				background: var(--surface-bg);
+				color: rgb(var(--text));
 				padding: 12px;
 				border-radius: 8px;
 				max-height: 320px;
@@ -101,6 +102,18 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 				font-size: 0.95rem;
 				box-shadow: var(--box-shadow);
 				margin: 1em 0;
+			}
+
+			/* Keep the copy button visible at the top when scrolling */
+			.prompt-box { position: relative; }
+			.copy-row {
+				position: sticky;
+				top: 0;
+				display: flex;
+				justify-content: flex-end;
+				padding-bottom: 8px;
+				background: var(--surface-bg);
+				z-index: 2;
 			}
 
 			/* Ensure prompt box stays LTR even when inside an RTL .prose container */
@@ -112,6 +125,7 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 			.prompt-box .prompt-content {
 				margin: 0;
 				white-space: pre-wrap;
+				color: inherit;
 			}
 			.copy-prompt-button {
 				background: var(--accent);
@@ -170,7 +184,7 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 
 					{title && title.includes('Security+') && securityPrompt ? (
 						<div class="prompt-box" dir="ltr" aria-label="Security+ prompt">
-							<div style="display:flex;justify-content:flex-end;margin-bottom:8px;">
+							<div class="copy-row">
 								<button class="copy-prompt-button" data-target="post-prompt">העתק</button>
 							</div>
 							<pre id="post-prompt" class="prompt-content" dir="ltr">{securityPrompt}</pre>
