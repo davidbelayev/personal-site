@@ -33,6 +33,18 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 				margin: 0;
 				padding: var(--page-padding-vertical) var(--page-padding-horizontal);
 			}
+
+			@media (max-width: 720px) {
+				/* Reduce horizontal padding only for blog post pages on small screens */
+				main {
+					padding-left: 0.75rem !important;
+					padding-right: 0.75rem !important;
+				}
+				.prose {
+					padding-left: 0.5rem !important;
+					padding-right: 0.5rem !important;
+				}
+			}
 			.hero-image {
 				width: 100%;
 			}

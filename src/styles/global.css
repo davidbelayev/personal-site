@@ -139,6 +139,8 @@ hr {
 	main {
 		padding: var(--page-padding-vertical) var(--page-padding-horizontal);
 	}
+
+	/* Leave page padding variables untouched here; per-page overrides can change padding when needed. */
 }
 
 .sr-only {
