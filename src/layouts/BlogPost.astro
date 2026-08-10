@@ -5,15 +5,33 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import fs from 'fs';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, lang, direction } = Astro.props;
+const postLang = lang ?? 'en';
+const postDir = direction ?? (postLang === 'he' ? 'rtl' : 'ltr');
+
+// Ensure meta title places the '+' correctly for Security+ in RTL locales by adding an LRM.
+const metaTitle = title && title.includes('Security+') ? title.replaceAll('Security+', 'Security+\u200E') : title;
+
+// Prepare parts for rendering a visible H1 where 'Security+' is wrapped in an LTR span.
+const titleParts = title && title.includes('Security+') ? title.split('Security+') : null;
+
+// Load the security-plus prompt file (server-side). This is optional and only used for the Security+ post.
+let securityPrompt = '';
+try {
+	const promptPath = new URL('../assets/securityplus-prompt.md', import.meta.url);
+	securityPrompt = fs.readFileSync(promptPath, 'utf-8');
+} catch (e) {
+	securityPrompt = '';
+}
 ---
 
-<html lang="en">
+<html lang={postLang} dir={postDir}>
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={metaTitle} description={description} />
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -36,6 +54,30 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
 			}
+
+			/* RTL handling for Hebrew posts */
+			.prose[dir="rtl"] {
+				direction: rtl;
+				unicode-bidi: isolate-override;
+				text-align: right;
+			}
+
+			/* Ensure inline elements inherit direction and avoid bidi leaks */
+			.prose[dir="rtl"] > * {
+				direction: inherit;
+				unicode-bidi: isolate-override;
+			}
+
+			/* Let the browser decide direction for inline LTR runs, isolate to avoid bidi leaks */
+			.prose[dir="rtl"] a,
+			.prose[dir="rtl"] code,
+			.prose[dir="rtl"] pre,
+			.prose[dir="rtl"] strong,
+			.prose[dir="rtl"] em,
+			.prose[dir="rtl"] span {
+				direction: auto;
+				unicode-bidi: isolate;
+			}
 			.title {
 				margin-bottom: 1em;
 				padding: 1em 0;
@@ -52,17 +94,66 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.last-updated-on {
 				font-style: italic;
 			}
+
+			/* Prompt box styles (fixed-size, scrollable) */
+			.prompt-box {
+				border: 1px solid rgba(var(--gray-light), 0.8);
+				background: #fff;
+				padding: 12px;
+				border-radius: 8px;
+				max-height: 320px;
+				overflow: auto;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Helvetica Neue', monospace;
+				font-size: 0.95rem;
+				box-shadow: var(--box-shadow);
+				margin: 1em 0;
+			}
+
+			/* Ensure prompt box stays LTR even when inside an RTL .prose container */
+			.prose[dir="rtl"] .prompt-box {
+				direction: ltr !important;
+				unicode-bidi: isolate;
+				text-align: left;
+			}
+			.prompt-box .prompt-content {
+				margin: 0;
+				white-space: pre-wrap;
+			}
+			.copy-prompt-button {
+				background: var(--accent);
+				color: white;
+				border: none;
+				padding: 6px 10px;
+				border-radius: 6px;
+				cursor: pointer;
+			}
 		</style>
+		<script>
+			// Copy button handler for prompt box
+			document.addEventListener('click', (e) => {
+				const el = e.target;
+				if (el && el.classList && el.classList.contains('copy-prompt-button')) {
+					const targetId = el.getAttribute('data-target') || 'post-prompt';
+					const contentEl = document.getElementById(targetId);
+					if (!contentEl) return;
+					navigator.clipboard.writeText(contentEl.innerText).then(() => {
+						const prev = el.textContent;
+						el.textContent = 'הועתק';
+						setTimeout(() => { el.textContent = prev; }, 2000);
+					}).catch(() => { /* ignore */ });
+				}
+			});
+		</script>
 	</head>
 
-	<body>
+	<body dir={postDir} class={postDir === 'rtl' ? 'rtl-post' : ''}>
 		<Header />
 		<main>
 			<article>
 				<div class="hero-image">
 					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
 				</div>
-				<div class="prose">
+				<div class="prose" dir={postDir}>
 					<div class="title">
 						<div class="date">
 							<FormattedDate date={pubDate} />
@@ -74,10 +165,23 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 								)
 							}
 						</div>
-						<h1>{title}</h1>
+						{titleParts ? (
+							<h1>{titleParts[0]}<span dir="ltr">Security+</span>{titleParts.slice(1).join('Security+')}</h1>
+						) : (
+							<h1>{title}</h1>
+						)}
 						<hr />
 					</div>
 					<slot />
+
+					{title && title.includes('Security+') && securityPrompt ? (
+						<div class="prompt-box" dir="ltr" aria-label="Security+ prompt">
+							<div style="display:flex;justify-content:flex-end;margin-bottom:8px;">
+								<button class="copy-prompt-button" data-target="post-prompt">העתק</button>
+							</div>
+							<pre id="post-prompt" class="prompt-content" dir="ltr">{securityPrompt}</pre>
+						</div>
+					) : null}
 				</div>
 			</article>
 		</main>
