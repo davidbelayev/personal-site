@@ -13,26 +13,61 @@ const pdfPath = '/assets/pdfs/cyberlabs-final.pdf';
     <style>
       main.report { max-width: 980px; margin: 0 auto; padding: var(--page-padding-vertical) var(--page-padding-horizontal); }
       .viewer-wrap { width: 100%; max-width: 100%; overflow: auto; -webkit-overflow-scrolling: touch; }
-      .viewer { width: 100%; max-width: 100vw; display: block; height: calc(100vh - 240px); border: none; border-radius:8px; min-width: 0; }
-        /* Hide embedded viewer on narrow portrait devices (mobile phones) */
-          @media (orientation: portrait) and (max-width: 900px) {
-            .viewer-wrap { display: none; }
-          }
-      @media (max-width: 720px) {
-          .viewer { height: 60vh; }
-        }
-        @media (max-width: 900px) {
-          .viewer { height: 60vh; }
+      .viewer { width: 100%; max-width: 100%; display: block; height: calc(100vh - 240px); border: none; border-radius:8px; min-width: 0; }
+
+      /* Hide embedded viewer on narrow portrait devices (mobile phones) */
+      @media (orientation: portrait) and (max-width: 900px) {
+        .viewer-wrap { display: none; }
+        
       }
-      .actions { margin: 0.75rem 0; display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
-      .btn { background: transparent; border: 1px solid rgba(var(--gray),0.12); padding:0.4rem 0.6rem; border-radius:8px; text-decoration:none; color:inherit; font-size:0.9rem; line-height:1; flex:0 1 auto; min-width:0; }
+
       @media (max-width: 900px) {
-        .btn { font-size:0.85rem; }
+        .viewer { height: 60vh; }
       }
+
+      /* Actions: force LTR direction for buttons, allow wrapping and sensible spacing */
+      .actions {
+        margin: 0.75rem 0;
+        display: flex;
+        flex-direction: row;
+        gap: 0.75rem;
+        align-items: center;
+        flex-wrap: wrap;
+        direction: ltr; /* ensure buttons flow left-to-right */
+        max-width: 100%;
+      }
+
+      /* Buttons: larger hit area and prevent overflow by allowing shrink */
+      .btn {
+        background: transparent;
+        border: 1px solid rgba(var(--gray),0.12);
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        text-decoration: none;
+        color: inherit;
+        font-size: 0.95rem;
+        line-height: 1;
+        flex: 0 1 auto;
+        min-width: 0;
+        text-align: left; /* keep LTR alignment on wide screens */
+        white-space: nowrap; /* avoid accidental wrapping inside a button */
+      }
+
+      @media (max-width: 900px) {
+        .btn { font-size: 0.9rem; }
+      }
+
+      /* On very small viewports make buttons full-width and center their text */
       @media (max-width: 480px) {
-        .actions { gap:0.4rem; }
-        .btn { flex:1 1 100%; text-align:center; padding:0.5rem; }
+        .actions { gap: 0.5rem; }
+        .btn {
+          flex: 1 1 100%;
+          text-align: center;
+          padding: 0.75rem;
+          white-space: normal;
+        }
       }
+
       /* Prevent the report page from producing a horizontal page scroll when the PDF is wide */
       html, body { overflow-x: hidden; }
     </style>
