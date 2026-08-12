@@ -8,7 +8,7 @@ import Header from '../components/Header.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage, lang, direction } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, lang, direction, showPrompt } = Astro.props;
 const postLang = lang ?? 'en';
 const postDir = direction ?? (postLang === 'he' ? 'rtl' : 'ltr');
 
@@ -215,7 +215,7 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 					</div>
 					<slot />
 
-					{title && title.includes('Security+') && securityPrompt ? (
+					{title && title.includes('Security+') && securityPrompt && showPrompt !== false ? (
 						<div class="prompt-box" dir="ltr" aria-label="Security+ prompt">
 									<div class="copy-row">
 										<button class="copy-prompt-button" data-target="post-prompt" aria-label="Copy">

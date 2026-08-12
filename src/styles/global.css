@@ -54,10 +54,12 @@ body {
 	min-height: 100vh;
 }
 main {
-  width: calc(100% - 4em);
-  margin: auto;
-  padding: var(--page-padding-vertical) var(--page-padding-horizontal);
-  flex: 1 0 auto;
+	width: 100%;
+	max-width: 980px;
+	box-sizing: border-box;
+	margin: 0 auto;
+	padding: var(--page-padding-vertical) var(--page-padding-horizontal);
+	flex: 1 0 auto;
 }
 h1,
 h2,

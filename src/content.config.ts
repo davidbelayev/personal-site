@@ -17,6 +17,8 @@ const blog = defineCollection({
 				// optional localization and direction
 				lang: z.string().optional(),
 				direction: z.string().optional(),
+				// allow posts to opt out of the built-in Security+ prompt
+				showPrompt: z.boolean().optional(),
 			}),
 });
 

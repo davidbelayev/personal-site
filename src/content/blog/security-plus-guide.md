@@ -5,6 +5,7 @@ pubDate: 'Aug 10 2026'
 heroImage: '../../assets/securityplus_main.png'
 lang: 'he'
 direction: 'rtl'
+showPrompt: false
 ---
 
 ## למה <span dir="ltr">CompTIA Security+</span>?
@@ -119,7 +120,7 @@ In person at a test center
 
 ממשיכים בתהליך עד שמגיעים למסך התשלום.
 
-במסך הזה קיימת אפשרות להזין Voucher כדי להירשם לבחינה.
+במסך הזה קיימת אפשרות להזין Voucher כדי להירשם לבבחינה.
 
 העתיקו את הקוד שקיבלתם במייל, הדביקו אותו בשדה המתאים ואשרו את ההרשמה.
 
@@ -129,9 +130,17 @@ In person at a test center
 
 ממלית בחום על קורס יוטיוב חינמי של Professor Messer – הכי מפורסם בתחומו. עובר על כל הנושאים של הבחינה, סרטונים קצרים וממוקדים. הוא גם מסביר את מבנה הבחינה ואת הנושאים כבר בסרטון הראשון. סך הכל מדובר ב-15 שעות של הקלטה; אני צופה ב-1.5x וזה יוצא באזור ה-10 שעות. תזכרו שאת רוב החומר את כבר מכירים, אז אתם יכולים לדלג על חלקים נרחבים.
 
-https://youtube.com/playlist?list=PLG49S3nxzAnl4QDVqK-hOnoqcSKEIDDuv&si=2T4CpLCpTPsfvDUW
+<a href="https://youtube.com/playlist?list=PLG49S3nxzAnl4QDVqK-hOnoqcSKEIDDuv&si=2T4CpLCpTPsfvDUW" target="_blank" rel="noopener noreferrer">
+	<span dir="ltr">https://youtube.com/playlist?list=PLG49S3nxzAnl4QDVqK-hOnoqcSKEIDDuv&si=2T4CpLCpTPsfvDUW</span>
+</a>
 
-בחינות לדוגמה: אל תוותרו על לעשות בחינות לדוגמה. זה ממש חשוב. אני ממליץ לעשות חקר ולפתור בחינות מכמה וכמה מקורות. כדי להקל על תחילת התהליך, יצרתי prompt שאתם יכולים להכניס ל-LLM האהוב עליכם כדי שייצור לכם מבחנים איכותיים ללא הגבלה. אני משתמש בו והוא לגמרי עושה את העבודה.
+אל תוותרו על לתרגל מבחנים. זה לא פחות חשוב מללמוד את החומר עצמו. הכנתי prompt שמייצר מבחנים לדוגמה. הוא מייצר שאלות ברמה גבוהה שדומה מאוד למקור, והתשובות בנויות כך כדי שלא יהיה דרך לפתור את השאלה לפי מבנה המשפט, אורך, שימוש במילים מסוימות, וכדומה. בנוסף, בכל שאלה יש לפחות 2 תשובות שנשמעות הגיוניות, כלומר דרושה הבנה טובה של החומר כדי לצלוח את המבחנים הללו. כמו במציאות.
+
+כדי שיהיה לכם נוח, הכנתי גם דף HTML שמריץ את המבחנים הללו, מציג את התוצאות ובמידה וטעיתם בסעיף מסוים, הוא גם מסביר את הטעות. מוזמנים לנסות :)
+
+<a href="https://github.com/davidbelayev/secplus" target="_blank" rel="noopener noreferrer">
+	<span dir="ltr">https://github.com/davidbelayev/secplus</span>
+</a>
 
 מוזמנים ליצור איתי קשר אם משהו לא ברור.
 

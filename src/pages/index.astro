@@ -9,13 +9,95 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			/* Small showcase grid for highlighted projects and a blog post */
+			.showcase {
+				margin-top: 3rem;
+			}
+			.showcase-grid {
+				display: flex;
+				gap: 1rem;
+				align-items: center;
+				overflow-x: auto;
+				padding-bottom: 0.5rem; /* allow room for horizontal scrollbar */
+				-webkit-overflow-scrolling: touch;
+				justify-content: center; /* center items when they fit horizontally */
+				padding-inline: calc(var(--page-padding-horizontal) / 2);
+			}
+			.showcase .card {
+				background: var(--surface-bg);
+				padding: 0.5rem;
+				border-radius: 10px;
+				text-align: center;
+				text-decoration: none;
+				color: inherit;
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				justify-content: center; /* vertically center card content */
+				min-width: 260px;
+				flex: 0 0 260px; /* fixed card width to create predictable horizontal scroll */
+			}
+			.showcase .card .thumb {
+				width: 100%;
+				aspect-ratio: 4 / 3;
+				overflow: hidden;
+				display: block;
+				border-radius: 8px;
+				background: var(--surface-bg);
+			}
+			.showcase .card .thumb img {
+				width: 100%;
+				height: 100%;
+				object-fit: fill; /* stretch to fill 4:3 frame (may distort) */
+				display: block;
+			}
+			/* make cards slightly smaller on narrow screens */
+			@media (max-width: 720px) {
+				.showcase .card { min-width: 200px; flex: 0 0 200px; }
+			}
+			/* lightweight custom scrollbar for WebKit */
+			.showcase-grid::-webkit-scrollbar { height: 8px; }
+			.showcase-grid::-webkit-scrollbar-thumb { background: rgba(var(--gray), 0.12); border-radius: 8px; }
+			.showcase .card h4 { margin: 0.5rem 0 0 0; }
+			@media (max-width: 720px) {
+				.showcase { margin-top: 2rem; }
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
+		<div style="text-align: right; padding: 2rem">
+			<h4>See the light-mode icon?</h4>
+			<h5>I made it.</h5>
+			<h6>Well, technically ChatGPT made it, but still...</h6>
+			<h6>Isn't it cute?!</h6>
+		</div>
+
 		<main>
-			<h1 style="margin-top: 30%;">Welcome to my website.</h1>
-			<h3>It's still a work in progress :)</h3>
+			<section class="showcase" aria-labelledby="showcase-heading">
+				<h2 id="showcase-heading">Showcase</h2>
+				<div class="showcase-grid">
+					<a class="card" href="/projects/incident-reports/cyberlabs-final" aria-label="CyberLabs Final">
+						<div class="thumb">
+							<img src="/assets/images/cyberlabs-final.png" alt="CyberLabs Final" />
+						</div>
+					</a>
+					<a class="card" href="/projects/incident-reports/cyberlabs-test" aria-label="CyberLabs Test">
+						<div class="thumb">
+							<img src="/assets/images/cyberlabs-test.png" alt="CyberLabs Test" />
+						</div>
+					</a>
+					<a class="card" href="/blog/security-plus-guide/" aria-label="Security+ Guide">
+						<div class="thumb">
+							<img src="/assets/securityplus_main.png" alt="Security+ Guide" />
+						</div>
+					</a>
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
+
+				
 </html>
