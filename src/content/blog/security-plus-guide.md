@@ -139,7 +139,7 @@ In person at a test center
 כדי שיהיה לכם נוח, הכנתי גם דף HTML שמריץ את המבחנים הללו, מציג את התוצאות ובמידה וטעיתם בסעיף מסוים, הוא גם מסביר את הטעות. מוזמנים לנסות :)
 
 <a href="https://github.com/davidbelayev/secplus" target="_blank" rel="noopener noreferrer">
-	<span dir="ltr">https://github.com/davidbelayev/secplus</span>
+	<span dir="ltr">https://github.com/davidbelayev/certification-test-engine</span>
 </a>
 
 מוזמנים ליצור איתי קשר אם משהו לא ברור.
