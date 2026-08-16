@@ -16,13 +16,14 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 			}
 			.showcase-grid {
 				display: flex;
-				gap: 1rem;
+				gap: 2rem;
 				align-items: center;
 				overflow-x: auto;
-				padding-bottom: 0; /* removed extra spacing for tighter layout */
+				padding: 2rem; /* vertical + horizontal padding so edge items don't touch border */
 				-webkit-overflow-scrolling: touch;
-				justify-content: center; /* center items when they fit horizontally */
-				padding-inline: 0;
+				justify-content: flex-start; /* align items to start so scroll begins at first item */
+				/* make scroll treat the container padding as scrollable offsets */
+				scroll-padding-inline: 2rem;
 			}
 			.showcase .card {
 				background: var(--surface-bg);
@@ -37,6 +38,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				justify-content: center; /* vertically center card content */
 				min-width: 260px;
 				flex: 0 0 260px; /* fixed card width to create predictable horizontal scroll */
+				
 			}
 			.showcase .card .thumb {
 				width: 100%;
@@ -44,14 +46,17 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				overflow: hidden;
 				display: block;
 				border-radius: 8px;
-				background: var(--surface-bg);
+				background: var(--surface-bg);	
+				box-shadow: var(--box-shadow);
 			}
+
 			.showcase .card .thumb img {
 				width: 100%;
 				height: 100%;
-				object-fit: fill; /* stretch to fill 4:3 frame (may distort) */
+				object-fit: cover; /* preserve aspect, fill frame */
 				display: block;
 			}
+
 			/* make cards slightly smaller on narrow screens */
 			@media (max-width: 720px) {
 				.showcase .card { min-width: 200px; flex: 0 0 200px; }

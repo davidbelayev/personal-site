@@ -86,25 +86,13 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 }
-
 /* Apply the site-wide SVG background to the root html element so it appears
    behind all page content (including elements that use surface background colors). */
 html {
-	background-color: var(--bg-surface);
-	/* Use the SVG directly in light mode (no tint) so colors remain true. */
 	background-image: var(--site-bg-url);
 	background-repeat: no-repeat;
 	background-position: center top;
 	background-size: cover;
-	background-attachment: fixed;
-}
-table {
-	width: 100%;
-}
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
 }
 code {
 	padding: 2px 5px;
@@ -188,7 +176,8 @@ html.dark {
 	--gray-light: 18, 20, 24; /* background accents */
 	--gray-dark: 220, 224, 230; /* lighter gray for text */
 	--gray-gradient: rgba(var(--gray-light), 10%), #060608;
-	--box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+	/* lighter, visible shadow on dark backgrounds */
+	--box-shadow: 0 2px 8px rgba(255,255,255,0.04), 0 8px 20px rgba(255,255,255,0.03);
 	--header-bg: #07070a;
 	--surface-bg: #07070a;
 	--text: 220, 224, 230;
@@ -196,8 +185,8 @@ html.dark {
 	--bg-overlay: rgba(2,6,23,0.6);
 	--bg-surface: var(--bg);
 
-	/* Switch to dark SVG when site uses the `dark` class (no light tint). */
-	background-image: url('/assets/cyber-portfolio-background-v1-dark.svg');
+	/* Switch the background SVG variable to the dark asset when in dark mode. */
+	--site-bg-url: url('/assets/cyber-portfolio-background-v1-dark.svg');
 
 	/* Dark-mode glass variant */
 	--surface-glass: rgba(2,6,23,0.08);
