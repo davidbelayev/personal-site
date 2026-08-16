@@ -31,7 +31,6 @@ const pageDescription = 'Project portfolio — Incident Reports: SIEM Investigat
 
       .card {
         background: var(--surface-bg);
-        padding: 0.75rem;
         border-radius: 10px;
         text-align: center;
         display: flex;
@@ -48,6 +47,7 @@ const pageDescription = 'Project portfolio — Incident Reports: SIEM Investigat
         object-fit: cover;
         border-radius: 6px;
         display: block;
+        margin: 0;
       }
 
       .card a { text-decoration: none; color: inherit; display:block; }
@@ -87,13 +87,13 @@ const pageDescription = 'Project portfolio — Incident Reports: SIEM Investigat
           <div class="projects-grid">
             <div class="card">
               <a href="/projects/incident-reports/cyberlabs-final" aria-label="Open Incident Report CyberLabs Final">
-                <img src="/assets/images/cyberlabs-final.png" alt="Ransomware Attack" />
+                <img class="theme-img" src="/assets/images/ransomware_light.png" data-img-light="/assets/images/ransomware_light.png" data-img-dark="/assets/images/ransomware_dark.png" data-img-default="/assets/images/ransomware_light.png" alt="Ransomware Attack" />
               </a>
             </div>
 
             <div class="card">
               <a href="/projects/incident-reports/cyberlabs-test" aria-label="Open Incident Report CyberLabs Test">
-                <img src="/assets/images/cyberlabs-test.png" alt="Internal Host Compromise" />
+                <img class="theme-img" src="/assets/images/bruteforce-to-exfiltration_light.png" data-img-light="/assets/images/bruteforce-to-exfiltration_light.png" data-img-dark="/assets/images/bruteforce-to-exfiltration_dark.png" data-img-default="/assets/images/bruteforce-to-exfiltration_light.png" alt="Internal Host Compromise" />
               </a>
             </div>
           </div>

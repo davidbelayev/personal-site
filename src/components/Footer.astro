@@ -27,9 +27,12 @@ const today = new Date();
 <style>
 	footer {
 		padding: 2em 1em 6em 1em;
-		background: var(--surface-bg);
+		background: var(--surface-glass);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
 		color: rgb(var(--text));
 		text-align: center;
+		border-top: 1px solid rgba(var(--black), 6%);
 	}
 	.social-links {
 		display: flex;
@@ -45,3 +48,38 @@ const today = new Date();
 		color: rgb(var(--gray-dark));
 	}
 </style>
+<script>
+	// Update theme-aware images: pick the first candidate that loads successfully.
+	(function () {
+		// Deterministic chooser: prefer the primary candidate (light or dark) without waiting
+		// for network probes. This avoids cases where the probe fails but the browser can
+		// still load the image via its normal fetch lifecycle. If the primary is missing
+		// the browser will show the fallback or broken image; ensure assets exist for best UX.
+		function updateThemeImages() {
+			const wantDark = document.documentElement.classList.contains('dark');
+			const imgs = document.querySelectorAll('img[data-img-light]');
+			for (const el of imgs) {
+				const light = el.getAttribute('data-img-light');
+				const dark = el.getAttribute('data-img-dark');
+				const fallback = el.getAttribute('data-img-default');
+				const primary = wantDark ? (dark || fallback || light) : (light || fallback || dark);
+				if (primary) el.src = primary;
+			}
+		}
+
+		// Observe theme class changes on <html>
+		const obs = new MutationObserver((mutations) => {
+			for (const m of mutations) {
+				if (m.attributeName === 'class') updateThemeImages();
+			}
+		});
+		obs.observe(document.documentElement, { attributes: true });
+
+		// Run once on load
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', () => { updateThemeImages(); });
+		} else {
+			updateThemeImages();
+		}
+	})();
+</script>

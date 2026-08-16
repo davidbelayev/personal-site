@@ -1,8 +1,10 @@
 ---
-title: 'מדריך להרשמה וללמידה להסמכת Security+'
+title: ''
 description: ''
 pubDate: 'Aug 10 2026'
-heroImage: '../../assets/securityplus_main.png'
+heroImage: '../../assets/images/secplus_light.png'
+heroImageLight: '../../assets/images/secplus_light.png'
+heroImageDark: '../../assets/images/secplus_dark.png'
 lang: 'he'
 direction: 'rtl'
 showPrompt: false

@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1920 1080"
+     preserveAspectRatio="xMidYMid slice"
+     role="img"
+     aria-label="Cybersecurity portfolio background (light-only)">
+  <defs>
+    <!-- Light mode palette (static light-only copy; removed prefers-color-scheme rules) -->
+    <linearGradient id="bgLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="48%" stop-color="#f3f6fb"/>
+      <stop offset="100%" stop-color="#eef2f7"/>
+    </linearGradient>
+
+    <radialGradient id="glowA" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity=".16"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="glowB" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0891b2" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="microGrid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" class="grid"/>
+      <circle cx="0" cy="0" r="1.25" class="gridDot"/>
+    </pattern>
+
+    <pattern id="binaryTexture" width="180" height="92" patternUnits="userSpaceOnUse">
+      <text x="6" y="20" class="binary">0110 1011</text>
+      <text x="54" y="57" class="binary">10 001 11</text>
+      <text x="112" y="82" class="binary">10101</text>
+    </pattern>
+
+    <filter id="softBlur">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+
+    <style>
+      .base-dark { display: none; }
+
+      .grid {
+        stroke: #0f172a;
+        stroke-opacity: .045;
+        stroke-width: 1;
+      }
+
+      .gridDot {
+        fill: #0f172a;
+        fill-opacity: .075;
+      }
+
+      .binary {
+        font: 500 9px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 1.1px;
+        fill: #0f172a;
+        fill-opacity: .045;
+      }
+
+      .trace {
+        fill: none;
+        stroke: #334155;
+        stroke-opacity: .12;
+        stroke-width: 1.25;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .trace-accent {
+        fill: none;
+        stroke: #6d28d9;
+        stroke-opacity: .20;
+        stroke-width: 1.4;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .node {
+        fill: #f8fafc;
+        stroke: #475569;
+        stroke-opacity: .18;
+        stroke-width: 1.2;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .node-accent {
+        fill: #ffffff;
+        stroke: #7c3aed;
+        stroke-opacity: .34;
+        stroke-width: 1.4;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .shield {
+        fill: none;
+        stroke: #475569;
+        stroke-opacity: .055;
+        stroke-width: 2;
+        vector-effect: non-scaling-stroke;
+      }
+
+      .cornerCode {
+        font: 600 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 2px;
+        fill: #334155;
+        fill-opacity: .07;
+      }
+    </style>
+  </defs>
+
+  <!-- Static light background -->
+  <rect class="base-light" width="1920" height="1080" fill="url(#bgLight)"/>
+
+  <!-- Very soft asymmetric color atmosphere -->
+  <ellipse cx="1540" cy="120" rx="510" ry="360" fill="url(#glowA)" filter="url(#softBlur)"/>
+  <ellipse cx="210" cy="900" rx="470" ry="340" fill="url(#glowB)" filter="url(#softBlur)"/>
+
+  <!-- Technical texture -->
+  <rect width="1920" height="1080" fill="url(#microGrid)"/>
+  <rect width="1920" height="1080" fill="url(#binaryTexture)" opacity=".55"/>
+
+  <!-- Sparse network / circuit structure -->
+  <g>
+    <path class="trace" d="M-40 250 H210 L275 315 H470 L520 365 H755"/>
+    <path class="trace" d="M260 45 V175 L338 253 V430 L420 512"/>
+    <path class="trace-accent" d="M1120 0 V132 L1188 200 H1440 L1505 265 H1850"/>
+    <path class="trace" d="M1340 1080 V915 L1268 843 H1128 L1063 778 H930"/>
+    <path class="trace" d="M1920 660 H1745 L1684 721 H1512 L1435 798 H1300"/>
+    <path class="trace-accent" d="M0 760 H142 L204 698 H362 L426 634"/>
+    <path class="trace" d="M680 1080 V950 L612 882 V735 L542 665"/>
+    <path class="trace" d="M840 0 V118 L905 183 V282"/>
+  </g>
+
+  <!-- Nodes -->
+  <g>
+    <circle class="node" cx="210" cy="250" r="5"/>
+    <circle class="node" cx="275" cy="315" r="4"/>
+    <circle class="node-accent" cx="520" cy="365" r="5.5"/>
+    <circle class="node" cx="338" cy="253" r="4"/>
+    <circle class="node" cx="420" cy="512" r="5"/>
+    <circle class="node-accent" cx="1188" cy="200" r="5"/>
+    <circle class="node" cx="1505" cy="265" r="4.5"/>
+    <circle class="node" cx="1268" cy="843" r="5"/>
+    <circle class="node-accent" cx="1063" cy="778" r="5.5"/>
+    <circle class="node" cx="1684" cy="721" r="4"/>
+    <circle class="node" cx="1435" cy="798" r="5"/>
+    <circle class="node-accent" cx="204" cy="698" r="5"/>
+    <circle class="node" cx="612" cy="882" r="4.5"/>
+    <circle class="node" cx="905" cy="183" r="5"/>
+  </g>
+
+  <!-- Abstract security glyph, intentionally low contrast -->
+  <g transform="translate(1435 430) scale(2.8)">
+    <path class="shield" d="M0 -54 L42 -37 V-4 C42 28 24 51 0 64 C-24 51 -42 28 -42 -4 V-37 Z"/>
+    <path class="shield" d="M-17 2 L-6 13 L18 -15"/>
+  </g>
+
+  <!-- Minimal terminal-like fragments -->
+  <g class="cornerCode">
+    <text x="88" y="100">AUTH::OK</text>
+    <text x="92" y="122">TLS_1.3</text>
+
+    <text x="1640" y="952">0x7F / SECURE</text>
+    <text x="1640" y="974">NODE::ACTIVE</text>
+  </g>
+
+  <!-- Small asymmetric packet bars -->
+  <g opacity=".32">
+    <rect x="101" y="520" width="68" height="3" rx="1.5" class="node"/>
+    <rect x="101" y="532" width="112" height="3" rx="1.5" class="node"/>
+    <rect x="101" y="544" width="42" height="3" rx="1.5" class="node"/>
+
+    <rect x="1610" y="370" width="82" height="3" rx="1.5" class="node"/>
+    <rect x="1650" y="382" width="119" height="3" rx="1.5" class="node"/>
+    <rect x="1592" y="394" width="54" height="3" rx="1.5" class="node"/>
+  </g>
+</svg>

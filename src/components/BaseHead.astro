@@ -2,8 +2,10 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
+// Use a static light-only SVG to avoid SVG-internal prefers-color-scheme rules
+import bgUrl from '../assets/cyber-portfolio-background-v1-static-light.svg?url';
 import type { ImageMetadata } from 'astro';
-import FallbackImage from '../assets/blog-placeholder-1.jpg';
+import FallbackImage from '../assets/images/secplus_light.png';
 import { SITE_TITLE } from '../consts';
 import { Font } from 'astro:assets';
 
@@ -35,6 +37,8 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta name="generator" content={Astro.generator} />
 
 <Font cssVariable="--font-atkinson" preload />
+
+<style>{`:root{ --site-bg-url: url("${bgUrl}"); }`}</style>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

@@ -24,6 +24,7 @@ const posts = (await getCollection('blog')).sort(
 			}
 			ul {
 				display: flex;
+				justify-content: center;
 				flex-wrap: wrap;
 				gap: 2rem;
 				list-style-type: none;
@@ -31,7 +32,7 @@ const posts = (await getCollection('blog')).sort(
 				padding: 0;
 			}
 			ul li {
-				width: calc(50% - 1rem);
+				max-width: calc(50% - 1rem);
 			}
 			ul li * {
 				text-decoration: none;
@@ -64,9 +65,10 @@ const posts = (await getCollection('blog')).sort(
 				margin: 0;
 				color: rgb(var(--gray));
 			}
+
 			ul li a:hover h4,
 			ul li a:hover .date {
-				color: rgb(var(--accent));
+				color: rgb(var(--gray-dark));
 			}
 			ul a:hover img {
 				box-shadow: var(--box-shadow);
@@ -91,31 +93,36 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
+			<header style="margin-bottom: 4rem;">
+				<h1>Blog posts</h1>
+			</header>
 			<section>
 				<ul>
 					{
 						posts.map((post) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+									{(post.data.heroImageLight || post.data.heroImageDark) ? (
+										(() => {
+											const light = post.data.heroImageLight ? (typeof post.data.heroImageLight === 'string' ? post.data.heroImageLight : post.data.heroImageLight.src) : null;
+											const dark = post.data.heroImageDark ? (typeof post.data.heroImageDark === 'string' ? post.data.heroImageDark : post.data.heroImageDark.src) : null;
+											const fallback = post.data.heroImage ? (typeof post.data.heroImage === 'string' ? post.data.heroImage : post.data.heroImage.src) : null;
+											return (<img class="theme-img" src={light || fallback} data-img-light={light} data-img-dark={dark} data-img-default={fallback} alt="" />);
+										})()
+									) : (
+										(() => {
+											const src = typeof post.data.heroImage === 'string' ? post.data.heroImage : (post.data.heroImage && post.data.heroImage.src ? post.data.heroImage.src : null);
+											const name = src ? src.split('/').pop().split('?')[0] : null;
+											const ext = name && name.includes('.') ? name.slice(name.lastIndexOf('.')) : '';
+											const base = name ? name.replace(ext, '') : '';
+											const lightCandidate = `/assets/${base}_light${ext}`;
+											const darkCandidate = `/assets/${base}_dark${ext}`;
+											const fallback = `/assets/${name}`;
+											const specialLight = name === 'securityplus_main.png' ? '/assets/secplus_light.png' : lightCandidate;
+											const specialDark = name === 'securityplus_main.png' ? '/assets/secplus_dark.png' : darkCandidate;
+											return (<img class="theme-img" src={specialLight} data-img-light={specialLight} data-img-dark={specialDark} data-img-default={fallback} alt="" />);
+										})()
 									)}
-									{
-										post.data.title && post.data.title.includes('Security+') ? (
-											(() => {
-												const parts = post.data.title.split('Security+');
-												return (
-													<h4 class="title" dir={post.data.lang === 'he' ? 'rtl' : 'ltr'}>
-														{parts[0]}
-														<span dir="ltr">Security+</span>
-														{parts.slice(1).join('Security+')}
-													</h4>
-												);
-											})()
-										) : (
-											<h4 class="title" dir={post.data.lang === 'he' ? 'rtl' : 'ltr'}>{post.data.title}</h4>
-										)
-									}
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
 									</p>

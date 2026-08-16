@@ -13,18 +13,12 @@ const pdfPath = '/assets/pdfs/cyberlabs-test.pdf';
     <style>
       main.report { max-width: 980px; margin: 0 auto; padding: var(--page-padding-vertical) var(--page-padding-horizontal); }
       .viewer-wrap { width: 100%; max-width: 100%; overflow: auto; -webkit-overflow-scrolling: touch; }
-      .viewer { width: 100%; max-width: 100vw; display: block; height: calc(100vh - 240px); border: none; border-radius:8px; min-width: 0; }
-      /* Constrain the embedded object itself so it cannot force page width
-        due to intrinsic sizing in some browsers. */
-      object.viewer { max-width: 100%; width: auto; min-width: 0; }
+      .viewer { width: 100%; max-width: 100%; display: block; height: calc(100vh - 240px); border: none; border-radius:8px; min-width: 0; }
 
-      /* Hide embedded viewer on narrow portrait devices (mobile phones).
-         Use !important to override competing rules and ensure the object
-         is not measured by the layout engine. */
+      /* Hide embedded viewer on narrow portrait devices (mobile phones) */
       @media (orientation: portrait) and (max-width: 900px) {
-        .viewer-wrap { display: none !important; }
-        .viewer { display: none !important; width: auto !important; max-width: 100% !important; }
-        object.viewer { display: none !important; }
+        .viewer-wrap { display: none; }
+        
       }
 
       @media (max-width: 900px) {
@@ -40,7 +34,7 @@ const pdfPath = '/assets/pdfs/cyberlabs-test.pdf';
         align-items: center;
         flex-wrap: wrap;
         direction: ltr; /* ensure buttons flow left-to-right */
-        width: 100%;
+        max-width: 100%;
       }
 
       /* Buttons: larger hit area and prevent overflow by allowing shrink */

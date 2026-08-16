@@ -19,14 +19,14 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				gap: 1rem;
 				align-items: center;
 				overflow-x: auto;
-				padding-bottom: 0.5rem; /* allow room for horizontal scrollbar */
+				padding-bottom: 0; /* removed extra spacing for tighter layout */
 				-webkit-overflow-scrolling: touch;
 				justify-content: center; /* center items when they fit horizontally */
-				padding-inline: calc(var(--page-padding-horizontal) / 2);
+				padding-inline: 0;
 			}
 			.showcase .card {
 				background: var(--surface-bg);
-				padding: 0.5rem;
+				padding: 0; /* removed padding for showcase objects */
 				border-radius: 10px;
 				text-align: center;
 				text-decoration: none;
@@ -67,30 +67,30 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<div style="text-align: right; padding: 2rem">
-			<h4>See the light-mode icon?</h4>
-			<h5>I made it.</h5>
-			<h6>Well, technically ChatGPT made it, but still...</h6>
-			<h6>Isn't it cute?!</h6>
-		</div>
-
 		<main>
+			<section class="about" aria-labelledby="about-heading" style="text-align: center; margin-bottom: 4rem;">
+				<h2 id="about-heading">About</h2>
+				<p>
+					My name is David Belayev Gal.<br />Computer Science major going into cybersecurity.<br />Feel free to explore and let me know what you think.
+				</p>
+			</section>
+
 			<section class="showcase" aria-labelledby="showcase-heading">
 				<h2 id="showcase-heading">Showcase</h2>
 				<div class="showcase-grid">
 					<a class="card" href="/projects/incident-reports/cyberlabs-final" aria-label="CyberLabs Final">
 						<div class="thumb">
-							<img src="/assets/images/cyberlabs-final.png" alt="CyberLabs Final" />
+								    <img class="theme-img theme-thumb" src="/assets/images/ransomware_light.png" data-img-light="/assets/images/ransomware_light.png" data-img-dark="/assets/images/ransomware_dark.png" data-img-default="/assets/images/ransomware_light.png" alt="Ransomware Report" />
 						</div>
 					</a>
 					<a class="card" href="/projects/incident-reports/cyberlabs-test" aria-label="CyberLabs Test">
 						<div class="thumb">
-							<img src="/assets/images/cyberlabs-test.png" alt="CyberLabs Test" />
+							<img class="theme-img theme-thumb" src="/assets/images/bruteforce-to-exfiltration_light.png" data-img-light="/assets/images/bruteforce-to-exfiltration_light.png" data-img-dark="/assets/images/bruteforce-to-exfiltration_dark.png" data-img-default="/assets/images/bruteforce-to-exfiltration_light.png" alt="Brute-force to Exfiltration" />
 						</div>
 					</a>
 					<a class="card" href="/blog/security-plus-guide/" aria-label="Security+ Guide">
 						<div class="thumb">
-							<img src="/assets/securityplus_main.png" alt="Security+ Guide" />
+							<img class="theme-img theme-thumb" src={'/assets' + '/secplus_light.png'} data-img-light={'/assets' + '/secplus_light.png'} data-img-dark={'/assets' + '/secplus_dark.png'} data-img-default={'/assets' + '/secplus_light.png'} alt="Security+ Guide" />
 						</div>
 					</a>
 				</div>

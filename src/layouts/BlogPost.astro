@@ -8,7 +8,7 @@ import Header from '../components/Header.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage, lang, direction, showPrompt } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroImageLight, heroImageDark, lang, direction, showPrompt } = Astro.props;
 const postLang = lang ?? 'en';
 const postDir = direction ?? (postLang === 'he' ? 'rtl' : 'ltr');
 
@@ -48,12 +48,25 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 			}
 			.hero-image {
 				width: 100%;
+				display: flex;
+				justify-content: center; /* center the constrained hero */
+			}
+			/* Constrained hero container keeps a 4:3 aspect ratio similar to homepage cards */
+			.hero-image .thumb {
+				width: 100%;
+				max-width: 480px; /* match /projects card width visually */
+				aspect-ratio: 4 / 3;
+				overflow: hidden;
+				background: var(--surface-bg);
+				border-radius: 10px; /* card-like rounded frame */
+				box-shadow: var(--box-shadow);
 			}
 			.hero-image img {
+				width: 100%;
+				height: 100%;
 				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
+				object-fit: cover; /* fill the 4:3 frame without distortion */
+				border-radius: 6px; /* match inner image rounding on project cards */
 			}
 			.prose {
 				width: 100%;
@@ -94,6 +107,7 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				font-size: var(--h2-size); /* slightly smaller title for blog hero alignment */
 			}
 			.date {
 				margin-bottom: 0.5em;
@@ -192,7 +206,34 @@ const securityPrompt = typeof securityPromptRaw === 'string' ? securityPromptRaw
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+					{
+						(() => {
+							if (heroImageLight && heroImageDark) {
+								const light = typeof heroImageLight === 'string' ? heroImageLight : (heroImageLight && heroImageLight.src ? heroImageLight.src : null);
+								const dark = typeof heroImageDark === 'string' ? heroImageDark : (heroImageDark && heroImageDark.src ? heroImageDark.src : null);
+								const fallback = typeof heroImage === 'string' ? heroImage : (heroImage && heroImage.src ? heroImage.src : '');
+								return (<div class="thumb"><img class="theme-img" src={light || fallback} data-img-light={light} data-img-dark={dark} data-img-default={fallback} alt="" /></div>);
+							}
+
+							if (!heroImage) return null;
+							// Determine a public-facing basename to construct light/dark candidates.
+							const src = typeof heroImage === 'string' ? heroImage : (heroImage && heroImage.src ? heroImage.src : null);
+							const name = src ? src.split('/').pop().split('?')[0] : null;
+							const ext = name && name.includes('.') ? name.slice(name.lastIndexOf('.')) : '';
+							const base = name ? name.replace(ext, '') : '';
+							// Candidate paths
+							const lightCandidate = `/assets/${base}_light${ext}`;
+							const darkCandidate = `/assets/${base}_dark${ext}`;
+							const fallback = `/assets/${name}`;
+							// Special-case mapping for securityplus_main -> secplus_light
+							const specialLight = name === 'securityplus_main.png' ? '/assets/secplus_light.png' : lightCandidate;
+							const specialDark = name === 'securityplus_main.png' ? '/assets/secplus_dark.png' : darkCandidate;
+
+							return (
+								<div class="thumb"><img class="theme-img" src={specialLight} data-img-light={specialLight} data-img-dark={specialDark} data-img-default={fallback} alt="" /></div>
+							);
+						})()
+					}
 				</div>
 				<div class="prose" dir={postDir}>
 					<div class="title">

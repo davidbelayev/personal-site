@@ -45,7 +45,9 @@ frontmatter = [
     f"title: '{title}'",
     "description: ''",
     f"pubDate: '{date_str}'",
-    "heroImage: '../../assets/blog-placeholder-3.jpg'",
+    "heroImage: '../../assets/images/secplus_light.png'",
+    "heroImageLight: '../../assets/images/secplus_light.png'",
+    "heroImageDark: '../../assets/images/secplus_dark.png'",
     '---',
     '',
 ]
