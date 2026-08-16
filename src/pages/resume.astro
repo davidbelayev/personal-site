@@ -137,9 +137,34 @@ const skills = [
         margin-top: 1rem;
       }
 
-      .contact, .skills { background: var(--surface-bg); padding: 1.5rem; border-radius: 12px; }
+      /* Use a semi-transparent surface for contact and skills to reduce
+         visual weight in both light and dark themes. Light theme uses a
+         translucent white; dark theme uses a translucent near-black. */
+      .contact, .skills {
+        background-color: rgba(255,255,255,0.30);
+        padding: 1.5rem;
+        border-radius: 12px;
+        font-size: 18px; /* match main.resume base font */
+        line-height: 1.6;
+      }
 
-      .contact a { color: var(--accent); text-decoration: none; }
+      /* Match section heading sizing so side headings don't appear oversized */
+      .contact h2,
+      .skills h2 {
+        margin: 0 0 0.75rem 0;
+        font-size: 1.0rem;
+        color: rgb(var(--black));
+        padding-bottom: 0.0rem;
+        border-bottom: none;
+      }
+
+      /* Dark-mode override */
+      html.dark .contact,
+      html.dark .skills {
+        background-color: rgba(7,7,10,0.30);
+        font-size: 18px;
+        line-height: 1.6;
+      }
 
       .skills-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0.8rem 1.5rem; }
 
@@ -207,9 +232,7 @@ const skills = [
           <div class="contact" id="contact">
             <h2 id="contact-heading">Contact</h2>
             <address>
-              <div>Israel</div>
-              <div><a href="mailto:davidbelayev@gmail.com">davidbelayev@gmail.com</a></div>
-              <div><a href="https://www.linkedin.com/in/david-belayev-gal" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+              <div>davidbelayev@gmail.com</div>
             </address>
           </div>
 
